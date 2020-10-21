@@ -8,7 +8,6 @@ from sendemail.mailacnt import mailacnt
 
 
 def mailcont(dic_person):
-
     # 導入 gmail 帳號密碼
     mail_acnt = mailacnt()
 
@@ -29,10 +28,10 @@ def mailcont(dic_person):
 
     return content
 
-def sendbygoogle():
 
+def sendbygoogle(salary_path, employee_path, mail_id, mail_pw):
     # 使用 salary func 抓取全部人資料
-    dic_all = salary()
+    dic_all = salary(salary_path, employee_path)
     mail_acnt = mailacnt()
     '''
     content = MIMEMultipart()
@@ -42,7 +41,7 @@ def sendbygoogle():
 
     template = Template(Path("static/source/test.html").read_text(encoding="utf-8"))
     body= template.substitute(dic_person)
-    
+
     content.attach(MIMEText(body, "html"))
     '''
 
@@ -50,7 +49,8 @@ def sendbygoogle():
         try:
             smtp.ehlo()
             smtp.starttls()
-            smtp.login(mail_acnt['account'], mail_acnt['apppwd'])
+            # smtp.login(mail_acnt['account'], mail_acnt['apppwd'])
+            smtp.login(mail_id, mail_pw)
 
             for person in dic_all:
                 content = mailcont(dic_all[person])

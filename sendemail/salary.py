@@ -1,8 +1,8 @@
 import pandas as pd
 
-def salary():
+def salary(salary_path, employee_path):
     # 抓取薪資總表
-    df = pd.read_excel("static/source/salary.xlsx", header=None, usecols='A:S')
+    df = pd.read_excel(salary_path, header=None, usecols='A:S')
 
     corpname = df.iloc[0, 0]        # 公司名稱
     salatitle = df.iloc[1, 0]
@@ -39,7 +39,7 @@ def salary():
     df_ins = df_ins[[i for i in range(8)]].rename(columns=df_ins.iloc[1]).drop([0, 1, 2]).reset_index(drop=True)
 
     # 讀取員工表格
-    df_employee = pd.read_excel("static/source/employee.xlsx")
+    df_employee = pd.read_excel(employee_path)
 
     # 將三個表格合併成一個大表
     df_tmp = pd.merge(df_employee, df_salary.drop(["員工"], axis=1), how='left', on='編號')
