@@ -54,8 +54,8 @@ def salary(salary_path, employee_path):
 
     # 資料轉成dict形式回傳
     dict_all = {}
-    # for i in range(len(df_all)):
-    for i in range(10):
+    # for i in [range(10) / range(len(df_all))]:
+    for i in range(len(df_all)):
         dict_person = {
             'corpname': corpname,
             'salary_year': salaryyr,
