@@ -5,7 +5,7 @@ import smtplib
 from string import Template
 from sendemail.salary import salary
 from sendemail.mailacnt import mailacnt
-
+#import tkinter as tk
 
 def mailcont(dic_person):
     # 導入 gmail 帳號密碼
@@ -29,7 +29,7 @@ def mailcont(dic_person):
     return content
 
 
-def sendbygoogle(salary_path, employee_path, mail_id, mail_pw):
+def sendbygoogle(salary_path, employee_path, mail_id, mail_pw, status):
     # 使用 salary func 抓取全部人資料
     dic_all = salary(salary_path, employee_path)
     mail_acnt = mailacnt()
@@ -56,8 +56,10 @@ def sendbygoogle(salary_path, employee_path, mail_id, mail_pw):
                 content = mailcont(dic_all[person])
                 smtp.send_message(content)
                 print("{} send Complete!".format(person))
-
+                status.set("{} send Complete!".format(person))
             print("All Complete!")
+            status.set("All Complete!")
         except Exception as e:
             print("Error:", e)
+            status.set(e)
 

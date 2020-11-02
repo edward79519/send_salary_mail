@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import filedialog
 
 def getfilepath(file):
-    file_path = filedialog.askopenfilename(filetypes = (("Excel files","*.xlsx"),("all files","*.*")))
+    file_path = filedialog.askopenfilename(filetypes=(("Excel files", "*.xlsx"), ("all files", "*.*")))
     file.set(file_path)
 
 def main():
@@ -62,15 +62,18 @@ def main():
 
     mail_pw_frame = tk.Frame(window)
     mail_pw_frame.pack(side=tk.TOP)
-    mail_pw_label = tk.Label(mail_pw_frame, text="Mail 密碼：")
+    mail_pw_label = tk.Label(mail_pw_frame, text="Mail 應用程式密碼：")
     mail_pw_label.pack(side=tk.LEFT)
     mail_pw = tk.Entry(mail_pw_frame)
     mail_pw.pack(side=tk.RIGHT)
 
+    status_text = tk.StringVar()
     # 按下按鈕後開始執行程式
     send2_label = tk.Button(window, text='Send!',
                             command=lambda: sendbygoogle(file_salary.get(), file_contact.get(),
-                                                         mail_id.get(), mail_pw.get())).pack()
+                                                         mail_id.get(), mail_pw.get(), status_text)).pack()
+    status_label = tk.Label(window, text="None", textvariable=status_text, bg='white')
+    status_label.pack()
     # 開始執行視窗
     window.mainloop()
 
